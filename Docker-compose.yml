@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  rabbit:
+    image: rabbitmq
+    hostname: rabbit
+    container_name: rabbit
+    ports:
+      - "5672:5672"
+    volumes:
+      - ./data:/var/lib/rabbitmq
+    restart: always
