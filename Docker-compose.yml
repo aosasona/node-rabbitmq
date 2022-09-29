@@ -1,12 +1,28 @@
 version: "3"
 
 services:
+  publisher:
+    container_name: publisher
+    build:
+      context: ./publisher
+      dockerfile: Dockerfile
+    ports:
+      - "20000:20000"
+    depends_on:
+      - rabbit
   rabbit:
-    image: rabbitmq
+    image: rabbitmq:3-management-alpine
     hostname: rabbit
     container_name: rabbit
     ports:
       - "5672:5672"
+      - "15672:15672"
     volumes:
       - ./data:/var/lib/rabbitmq
     restart: always
+    networks:
+      - rabbit_hole
+
+networks:
+  rabbit_hole:
+    driver: bridge

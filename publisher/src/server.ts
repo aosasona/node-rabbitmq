@@ -31,7 +31,7 @@ server.post("/publish", async (request, reply) => {
     return {
       success: true,
       message: `Event ${event} published!`,
-      data: {},
+      data,
     };
   } catch (error: any) {
     const err = handleError(error);
@@ -41,7 +41,7 @@ server.post("/publish", async (request, reply) => {
 
 server.listen(
   {
-    port: 20000,
+    port: 8080,
   },
   (err, address) => {
     if (err) {
