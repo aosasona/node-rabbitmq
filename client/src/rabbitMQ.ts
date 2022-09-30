@@ -1,12 +1,14 @@
 import amqp from "amqplib";
 import fs from "fs";
 import path from "path";
-import { promisify } from "util";
 
 const queue = "events";
 
 export async function rabbitMQ(): Promise<amqp.Channel> {
-  const connection = await amqp.connect("amqp://localhost:5672");
+  const connection = await amqp.connect(
+    "amqp://localhost:5672",
+    "heartbeat=60"
+  );
   const channel = await connection.createChannel();
   await channel.assertQueue(queue, {
     durable: false,
@@ -53,7 +55,7 @@ const checkFolderExistsOrCreate = (folderName: string) => {
 const getCurrentDate = () => {
   const today = new Date();
   const dd = String(today.getDate()).padStart(2, "0");
-  const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+  const mm = String(today.getMonth() + 1).padStart(2, "0");
   const yyyy = today.getFullYear();
   return `${yyyy}-${mm}-${dd}`;
 };

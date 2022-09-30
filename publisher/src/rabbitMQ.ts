@@ -3,7 +3,10 @@ import amqp from "amqplib";
 const queue = "events";
 
 export async function rabbitMQ(): Promise<amqp.Channel> {
-  const connection = await amqp.connect("amqp://localhost:5672");
+  const connection = await amqp.connect(
+    "amqp://localhost:5672",
+    "heartbeat=60"
+  );
   const channel = await connection.createChannel();
   await channel.assertQueue(queue, {
     durable: false,

@@ -1,6 +1,6 @@
 import Fastify from "fastify";
 import randToken from "rand-token";
-import { listenForEvents, rabbitMQ } from "./rabbitMQ";
+import { listenForEvents } from "./rabbitMQ";
 
 const server = Fastify({
   logger: true,
